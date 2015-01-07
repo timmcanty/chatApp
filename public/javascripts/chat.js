@@ -12,6 +12,10 @@
     return $('<li></li>').text(html);
   };
 
+  Chat.newImg = function (src) {
+    return $('<img src="' + src + '"></img');
+  };
+
   Chat.newPane = function () {
     var pane = $('<section class="main after"></section>');
     var messages = $('<ul class="messages"></ul>');
@@ -39,6 +43,8 @@
       return 'roomJoinRequest';
     } else if (message.match(/^\/leave/)) {
       return 'roomLeaveRequest';
+    } else if (message.match(/^\/img\s/)) {
+      return 'sendImage';
     }
     return false;
   };

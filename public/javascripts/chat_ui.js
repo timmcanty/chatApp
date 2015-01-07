@@ -43,6 +43,15 @@
       }
     });
 
+    chat.socket.on("image", function (data) {
+      console.log('image received from server')
+      console.log(data.imageSrc);
+      var $image = ChatApp.Chat.newLi(data.message);
+      console.log($image);
+      $image.append(ChatApp.Chat.newImg(data.imageSrc));
+      $('#' + data.room + ' .messages').prepend($image);
+    });
+
     chat.socket.on("nicknameChangeResult", function (data) {
       if (data.success) {
         $('.user-name').text('Your current handle: ' + data.nickname);

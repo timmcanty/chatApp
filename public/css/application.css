@@ -168,3 +168,9 @@ form.message-input .send-message:active {
 .error-msg {
   color: red;
 }
+
+.messages img {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
