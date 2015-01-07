@@ -40,14 +40,11 @@ $.Tabs.prototype.clickTab = function (event) {
 };
 
 $.fn.tabs = function () {
-  console.log('found somethin')
-  console.log(this);
   return this.each(function () {
-    new $.Tabs(this);
+    window.tab = new $.Tabs(this);
   });
 };
 
 $(function () {
-  console.log('loaded tabs')
   $(".tabs").tabs();
 });

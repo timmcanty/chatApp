@@ -12,6 +12,15 @@
     return $('<li></li>').text(html);
   };
 
+  Chat.newPane = function () {
+    var pane = $('<section class="main after"></section>');
+    var messages = $('<ul class="messages"></ul>');
+    var users = $('<ul class="users"></ul>');
+    pane.append(messages);
+    pane.append(users);
+    return pane;
+  }
+
   Chat.prototype.sendMessage = function (data) {
     var message = data.message;
     var command = this.parseCommand(message);
@@ -28,6 +37,8 @@
       return 'nicknameChangeRequest';
     } else if (message.match(/^\/join\s\w{4}/)) {
       return 'roomJoinRequest';
+    } else if (message.match(/^\/leave/)) {
+      return 'roomLeaveRequest';
     }
     return false;
   };
