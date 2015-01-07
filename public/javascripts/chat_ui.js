@@ -10,11 +10,12 @@
     chat.$chatEl = $('.active .messages');
     chat.$usersEl = $('.active .users');
     setInterval( function () {
+      console.log(chat.room);
       chat.$chatEl = $('.active .messages');
       chat.$usersEl = $('.active .users');
-    },20);
+    },200);
 
-      $('.switch-room').click(function () {
+      $('.room-tabs').click(function (event) {
         chat.room = $(event.target).attr("href").slice(1);
       });
 
@@ -54,9 +55,6 @@
     chat.socket.on("roomJoinResponse", function (data) {
       var room = data.room;
       var roomTab = $('<li><a class="switch-room" href="#' + data.room + '">' + data.room + '</a></li>');
-      roomTab.find('a').click(function () {
-        chat.room = $(event.target).attr("href").slice(1);
-      });
       var roomDiv = $('<div class="chat-pane" id="' + data.room + '">');
       roomDiv.append(ChatApp.Chat.newPane());
       $('#content-tabs').append(roomDiv);
@@ -68,14 +66,13 @@
     });
 
     chat.socket.on("roomLeaveResponse", function (data) {
+      $('a[href="#lobby"]').trigger('click');
       var room = data.room;
       var roomLink = $('a[href="#' + data.room + '"]')
+      console.log(roomLink.parent());
       roomLink.parent().remove();
-      var roomPane = $('#' + room );
-      roomPane.remove();
       if (room != 'lobby') {
         console.log($('a[href="#lobby"]'));
-        $('a[href="#lobby"]').trigger('click');
       }
     });
 
